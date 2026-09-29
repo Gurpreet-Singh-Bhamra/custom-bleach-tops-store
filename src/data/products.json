@@ -1,0 +1,65 @@
+[
+  {
+    "id": "sea-turtle-cami",
+    "title": "Sea Turtle Cami",
+    "price": 48,
+    "image": "/media/products/turtle-styled.jpg",
+    "images": [
+      "/media/products/turtle-styled.jpg",
+      "/media/products/turtle-studio.jpg",
+      "/media/craft/turtle-detail.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "inStock": true
+  },
+  {
+    "id": "gothic-cross-cami",
+    "title": "Gothic Cross Cami",
+    "price": 52,
+    "image": "/media/products/cross-look.jpg",
+    "images": [
+      "/media/products/cross-look.jpg",
+      "/media/products/cross-styled.jpg",
+      "/media/products/cross-2xs.jpg",
+      "/media/craft/cross-detail.jpg"
+    ],
+    "sizes": ["XXS", "XS", "S", "M", "L", "XL"],
+    "inStock": true
+  },
+  {
+    "id": "web-portrait-cami",
+    "title": "Web Portrait Cami",
+    "price": 52,
+    "image": "/media/products/web-styled.jpg",
+    "images": [
+      "/media/products/web-styled.jpg",
+      "/media/products/web-studio.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "inStock": true
+  },
+  {
+    "id": "night-bloom-cami",
+    "title": "Night Bloom Cami",
+    "price": 48,
+    "image": "/media/products/bloom-look.jpg",
+    "images": [
+      "/media/products/bloom-look.jpg",
+      "/media/products/bloom-styled.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "inStock": true
+  },
+  {
+    "id": "butterfly-bloom-tee",
+    "title": "Butterfly Bloom Tee",
+    "price": 48,
+    "image": "/media/products/butterfly-back.jpg",
+    "images": [
+      "/media/products/butterfly-back.jpg",
+      "/media/craft/butterfly-detail.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "inStock": true
+  }
+]

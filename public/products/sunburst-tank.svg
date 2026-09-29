@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800" role="img" aria-labelledby="title">
+  <title id="title">Sunburst Oversized Tank</title>
+  <defs>
+    <radialGradient id="burst" cx="50%" cy="42%" r="70%">
+      <stop offset="0" stop-color="#ffe27a"/>
+      <stop offset="0.45" stop-color="#f3a53a"/>
+      <stop offset="1" stop-color="#1a130c"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="800" fill="#1a130c"/>
+  <circle cx="320" cy="360" r="240" fill="url(#burst)" opacity="0.9"/>
+  <g stroke="#ffe9a3" stroke-width="18" opacity="0.35">
+    <path d="M320 120v90"/>
+    <path d="M320 510v90"/>
+    <path d="M140 360h90"/>
+    <path d="M410 360h90"/>
+    <path d="M190 210l64 64"/>
+    <path d="M386 386l64 64"/>
+    <path d="M190 510l64-64"/>
+    <path d="M386 334l64-64"/>
+  </g>
+  <path d="M210 190h70l40-28 40 28h70v28H210z" fill="#111"/>
+  <path d="M210 218h220v430H210z" fill="#111"/>
+  <path d="M280 190l40-28 40 28v26c-12 12-27 18-40 18s-28-6-40-18z" fill="#ffe27a"/>
+  <path d="M250 330c40-55 100-55 140 0" fill="none" stroke="#f6c15b" stroke-width="14" opacity="0.55"/>
+</svg>

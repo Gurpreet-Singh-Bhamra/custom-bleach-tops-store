@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800" role="img" aria-labelledby="title">
+  <title id="title">Galaxy Bleach Tee</title>
+  <defs>
+    <radialGradient id="sky" cx="50%" cy="35%" r="75%">
+      <stop offset="0" stop-color="#4b3d8a"/>
+      <stop offset="0.55" stop-color="#1d2458"/>
+      <stop offset="1" stop-color="#0b1028"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="800" fill="url(#sky)"/>
+  <g fill="#f4f1ff">
+    <circle cx="90" cy="80" r="2"/>
+    <circle cx="180" cy="140" r="1.5"/>
+    <circle cx="320" cy="60" r="2.2"/>
+    <circle cx="500" cy="110" r="1.6"/>
+    <circle cx="560" cy="220" r="2"/>
+    <circle cx="80" cy="300" r="1.4"/>
+    <circle cx="430" cy="190" r="1.8"/>
+    <circle cx="260" cy="240" r="1.2"/>
+  </g>
+  <path d="M150 170h95l75-55 75 55h95v48l-50 20v390H200V238l-50-20z" fill="#14183a"/>
+  <path d="M245 170l75-55 75 55v36c-22 20-48 30-75 30s-53-10-75-30z" fill="#c9c3ff"/>
+  <circle cx="250" cy="360" r="46" fill="#f7f2ff" opacity="0.16"/>
+  <circle cx="390" cy="430" r="70" fill="#d6c4ff" opacity="0.18"/>
+  <circle cx="320" cy="520" r="26" fill="#fff7d6" opacity="0.22"/>
+  <path d="M220 300c46-40 160-40 210 8" fill="none" stroke="#efeaff" stroke-width="10" opacity="0.28"/>
+  <circle cx="300" cy="400" r="4" fill="#fff"/>
+  <circle cx="360" cy="470" r="3" fill="#fff8c8"/>
+  <circle cx="410" cy="350" r="2.5" fill="#fff"/>
+</svg>
