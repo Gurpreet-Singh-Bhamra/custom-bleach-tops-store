@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, type MouseEvent } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "./CartProvider";
 
@@ -8,10 +10,69 @@ const navLinks = [
   { href: "/#shop", label: "Shop" },
   { href: "/#craft", label: "Craft" },
   { href: "/#sizing", label: "Sizing" },
+  { href: "/#custom", label: "Custom" },
 ];
 
+function sectionIdFromHref(href: string) {
+  const hashIndex = href.indexOf("#");
+  return hashIndex === -1 ? null : href.slice(hashIndex + 1);
+}
+
+function scrollToSection(id: string) {
+  const section = document.getElementById(id);
+  if (!section) return false;
+  section.scrollIntoView({ behavior: "smooth", block: "start" });
+  return true;
+}
+
 export function Header() {
+  const pathname = usePathname();
   const { itemCount, isOpen, openCart } = useCart();
+
+  useEffect(() => {
+    function scrollToHash() {
+      const id = window.location.hash.slice(1);
+      if (id) scrollToSection(id);
+    }
+
+    const timers = [0, 80, 250].map((delay) =>
+      window.setTimeout(scrollToHash, delay),
+    );
+    window.addEventListener("hashchange", scrollToHash);
+    window.addEventListener("popstate", scrollToHash);
+
+    return () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+      window.removeEventListener("hashchange", scrollToHash);
+      window.removeEventListener("popstate", scrollToHash);
+    };
+  }, [pathname]);
+
+  function handleNavClick(
+    event: MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.altKey ||
+      event.ctrlKey ||
+      event.shiftKey
+    ) {
+      return;
+    }
+
+    const id = sectionIdFromHref(href);
+    if (!id || window.location.pathname !== "/") return;
+
+    event.preventDefault();
+    scrollToSection(id);
+
+    if (window.location.hash !== `#${id}`) {
+      window.history.pushState(null, "", `/#${id}`);
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-stone-800/80 bg-stone-950/95 text-stone-50 backdrop-blur-md">
@@ -50,6 +111,8 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
+              scroll={false}
+              onClick={(event) => handleNavClick(event, link.href)}
               className="shrink-0 text-stone-300 transition-colors hover:text-amber-200"
             >
               {link.label}

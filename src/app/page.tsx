@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import products from "@/data/products.json";
 import { BehindTheCraft } from "@/components/BehindTheCraft";
+import { CustomOrder } from "@/components/CustomOrder";
 import { HeroMedia } from "@/components/HeroMedia";
 import { ProductCard } from "@/components/ProductCard";
 import type { ProcessClip } from "@/data/media";
@@ -59,13 +60,18 @@ export default function Home() {
 
         <BehindTheCraft clips={clips} />
 
-        <section id="sizing" className="mt-10 scroll-mt-28 pb-8">
+        <section
+          id="sizing"
+          className="mt-10 scroll-mt-28 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm sm:p-6"
+        >
           <h2 className="text-xl font-semibold text-stone-950">Sizing</h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-stone-600 sm:text-base">
+          <p className="mt-2 text-sm leading-6 text-stone-600 sm:text-base">
             Available in sizes XXS through XL. Choose your usual size for a
             fitted look, or size up for a more relaxed, oversized fit.
           </p>
         </section>
+
+        <CustomOrder />
       </div>
     </main>
   );

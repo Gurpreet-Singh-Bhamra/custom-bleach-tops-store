@@ -83,8 +83,9 @@ export function HeroMedia({ videoSrc }: HeroMediaProps) {
             Custom Bleach Art You Can Wear
           </h1>
           <p className="mt-3 max-w-lg text-sm leading-6 text-stone-200 sm:text-base">
-            Hand-painted directly on to black tops. Pick from our signature art
-            or request a 100% custom design—no two tops are ever identical.
+            Hand-painted directly onto dark cotton tops. Pick from our signature
+            art or request a 100% custom design—no two pieces are ever
+            identical.
           </p>
           <a
             href="#shop"
