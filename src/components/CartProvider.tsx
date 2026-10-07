@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -23,14 +24,32 @@ type CartContextValue = {
   itemCount: number;
   subtotal: number;
   isOpen: boolean;
+  isReady: boolean;
   addToCart: (item: Omit<CartItem, "quantity">) => void;
   updateQuantity: (productId: string, size: string, quantity: number) => void;
   removeItem: (productId: string, size: string) => void;
+  clearCart: () => void;
   openCart: () => void;
   closeCart: () => void;
 };
 
+const CART_STORAGE_KEY = "bleach-tops-cart";
+
 const CartContext = createContext<CartContextValue | null>(null);
+
+function readStoredCart(): CartItem[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const stored = window.localStorage.getItem(CART_STORAGE_KEY);
+    if (!stored) return [];
+
+    const parsed = JSON.parse(stored) as CartItem[];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
 
 function matchesItem(
   entry: CartItem,
@@ -43,6 +62,17 @@ function matchesItem(
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setItems(readStoredCart());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  }, [hydrated, items]);
 
   const addToCart = useCallback((item: Omit<CartItem, "quantity">) => {
     setItems((current) => {
@@ -85,6 +115,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   }, []);
 
+  const clearCart = useCallback(() => {
+    setItems([]);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(CART_STORAGE_KEY, "[]");
+    }
+  }, []);
   const openCart = useCallback(() => setIsOpen(true), []);
   const closeCart = useCallback(() => setIsOpen(false), []);
 
@@ -100,15 +136,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
       itemCount,
       subtotal,
       isOpen,
+      isReady: hydrated,
       addToCart,
       updateQuantity,
       removeItem,
+      clearCart,
       openCart,
       closeCart,
     };
   }, [
     addToCart,
+    clearCart,
     closeCart,
+    hydrated,
     isOpen,
     items,
     openCart,

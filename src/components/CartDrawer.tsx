@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Minus, Plus, Trash2, X } from "lucide-react";
+import { formatPrice } from "@/lib/money";
 import { useCart } from "./CartProvider";
 
 const FOCUSABLE_SELECTOR = [
@@ -14,13 +15,6 @@ const FOCUSABLE_SELECTOR = [
   "[tabindex]:not([tabindex='-1'])",
 ].join(",");
 
-function formatPrice(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
-}
-
 export function CartDrawer() {
   const {
     items,
@@ -31,6 +25,8 @@ export function CartDrawer() {
     removeItem,
     closeCart,
   } = useCart();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -95,6 +91,50 @@ export function CartDrawer() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [closeCart, isOpen]);
+
+  useEffect(() => {
+    if (isOpen) setCheckoutError(null);
+  }, [isOpen, items]);
+
+  async function handleCheckout() {
+    if (items.length === 0 || isCheckingOut) return;
+
+    setIsCheckingOut(true);
+    setCheckoutError(null);
+
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((item) => ({
+            productId: item.productId,
+            title: item.title,
+            size: item.size,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image,
+          })),
+        }),
+      });
+
+      const payload = (await response.json()) as {
+        url?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !payload.url) {
+        throw new Error(payload.error || "Unable to start checkout");
+      }
+
+      window.location.assign(payload.url);
+    } catch (error) {
+      setCheckoutError(
+        error instanceof Error ? error.message : "Unable to start checkout",
+      );
+      setIsCheckingOut(false);
+    }
+  }
 
   return (
     <div
@@ -253,12 +293,18 @@ export function CartDrawer() {
             <span className="text-sm font-medium text-stone-500">Subtotal</span>
             <span className="text-lg font-semibold">{formatPrice(subtotal)}</span>
           </div>
+          {checkoutError ? (
+            <p className="mb-3 text-sm text-red-600" role="alert">
+              {checkoutError}
+            </p>
+          ) : null}
           <button
             type="button"
-            disabled={items.length === 0}
+            onClick={handleCheckout}
+            disabled={items.length === 0 || isCheckingOut}
             className="h-12 w-full rounded-full bg-stone-950 text-sm font-semibold text-white transition-colors hover:bg-stone-800 disabled:cursor-not-allowed disabled:bg-stone-300 disabled:text-stone-500"
           >
-            Proceed to Checkout
+            {isCheckingOut ? "Redirecting to Stripe…" : "Proceed to Checkout"}
           </button>
         </div>
       </div>

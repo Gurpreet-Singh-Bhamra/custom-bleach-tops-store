@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { formatPrice } from "@/lib/money";
 import { useCart } from "./CartProvider";
 import { ProductGallery } from "./ProductGallery";
 import type { Product, Size } from "@/types/product";
@@ -49,7 +50,7 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.title}
           </h2>
           <p className="shrink-0 text-base font-medium text-stone-700">
-            ${product.price}
+            {formatPrice(product.price)}
           </p>
         </div>
 
