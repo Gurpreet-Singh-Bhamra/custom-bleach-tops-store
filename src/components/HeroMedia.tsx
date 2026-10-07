@@ -23,19 +23,19 @@ export function HeroMedia({ videoSrc }: HeroMediaProps) {
   }, [videoSrc]);
 
   return (
-    <section className="relative isolate min-h-[72vh] overflow-hidden bg-stone-950 text-white sm:min-h-[78vh]">
+    <section className="relative isolate min-h-[88vh] overflow-hidden bg-stone-950 text-white sm:min-h-[82vh]">
       {videoSrc ? (
         <video
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full origin-[48%_88%] scale-[2.05] object-cover object-[center_96%] md:inset-y-0 md:left-auto md:w-[56%] md:origin-[62%_84%] md:scale-[1.62] md:object-[70%_100%]"
           autoPlay
           muted
           loop
           playsInline
           poster={heroSlides[0].src}
           preload="metadata"
-          width={1600}
-          height={2000}
-          aria-label="Lookbook of custom bleach camisoles"
+          width={540}
+          height={960}
+          aria-label="Hand drawing a bleach design onto a black camisole"
         >
           <source src={videoSrc} type="video/mp4" />
           Your browser does not support the video tag.
@@ -58,44 +58,61 @@ export function HeroMedia({ videoSrc }: HeroMediaProps) {
         </div>
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/45 to-stone-950/20" />
+      <div
+        className={
+          videoSrc
+            ? "absolute inset-0 bg-gradient-to-b from-stone-950/75 via-stone-950/25 to-transparent md:right-auto md:w-1/2 md:bg-gradient-to-r md:from-stone-950 md:via-stone-950/70 md:to-transparent"
+            : "absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/45 to-stone-950/20"
+        }
+      />
 
-      <div className="relative mx-auto flex min-h-[72vh] max-w-6xl flex-col justify-end px-4 pb-10 pt-24 sm:min-h-[78vh] sm:px-6 sm:pb-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-200">
-          Handmade bleach camisoles
-        </p>
-        <h1 className="mt-3 max-w-xl text-4xl font-semibold tracking-tight sm:text-5xl">
-          One-of-one line work on black jersey
-        </h1>
-        <p className="mt-3 max-w-lg text-sm leading-6 text-stone-200 sm:text-base">
-          Sea turtles, butterflies, gothic crosses — each top is drawn in
-          bleach, then left to rust into its own rust-orange finish.
-        </p>
-        <a
-          href="#shop"
-          className="mt-6 inline-flex h-12 w-fit items-center rounded-full bg-amber-300 px-6 text-sm font-semibold text-stone-950"
+      <div
+        className={`relative mx-auto grid min-h-[88vh] max-w-6xl px-4 pb-10 pt-24 sm:min-h-[82vh] sm:px-6 sm:pb-14 ${
+          videoSrc ? "md:grid-cols-2 md:items-center md:pt-20" : ""
+        }`}
+      >
+        <div
+          className={`flex max-w-xl flex-col ${
+            videoSrc ? "justify-start md:justify-center md:pr-8" : "justify-end"
+          }`}
         >
-          Shop the drop
-        </a>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-200">
+            1-of-1 handmade pieces
+          </p>
+          <h1 className="mt-3 max-w-xl text-[2rem] font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+            Custom Bleach Art You Can Wear
+          </h1>
+          <p className="mt-3 max-w-lg text-sm leading-6 text-stone-200 sm:text-base">
+            Hand-painted directly on to black tops. Pick from our signature art
+            or request a 100% custom design—no two tops are ever identical.
+          </p>
+          <a
+            href="#shop"
+            className="mt-6 inline-flex h-12 w-fit items-center rounded-full bg-amber-300 px-6 text-sm font-semibold text-stone-950"
+          >
+            Shop Collection
+          </a>
 
-        {videoSrc ? null : (
-          <div className="mt-8 flex gap-2">
-            {heroSlides.map((slide, index) => (
-              <button
-                key={slide.src}
-                type="button"
-                onClick={() => setActiveIndex(index)}
-                className={`h-1.5 rounded-full transition-all ${
-                  index === activeIndex
-                    ? "w-8 bg-amber-300"
-                    : "w-4 bg-white/40"
-                }`}
-                aria-label={`Show ${slide.alt}`}
-              />
-            ))}
-          </div>
-        )}
-        <span className="sr-only">{current.alt}</span>
+          {videoSrc ? null : (
+            <div className="mt-8 flex gap-2">
+              {heroSlides.map((slide, index) => (
+                <button
+                  key={slide.src}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    index === activeIndex
+                      ? "w-8 bg-amber-300"
+                      : "w-4 bg-white/40"
+                  }`}
+                  aria-label={`Show ${slide.alt}`}
+                />
+              ))}
+            </div>
+          )}
+          <span className="sr-only">{current.alt}</span>
+        </div>
+        {videoSrc ? <div className="hidden md:block" aria-hidden /> : null}
       </div>
     </section>
   );

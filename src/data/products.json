@@ -3,10 +3,10 @@
     "id": "sea-turtle-cami",
     "title": "Sea Turtle Cami",
     "price": 48,
-    "image": "/media/products/turtle-styled.jpg",
+    "image": "/media/products/turtle-styled-v3.jpg",
     "images": [
-      "/media/products/turtle-styled.jpg",
-      "/media/products/turtle-studio.jpg",
+      "/media/products/turtle-styled-v3.jpg",
+      "/media/products/turtle-studio-v3.jpg",
       "/media/craft/turtle-detail.jpg"
     ],
     "sizes": ["XS", "S", "M", "L", "XL"],
@@ -16,11 +16,11 @@
     "id": "gothic-cross-cami",
     "title": "Gothic Cross Cami",
     "price": 52,
-    "image": "/media/products/cross-look.jpg",
+    "image": "/media/products/cross-look-v3.jpg",
     "images": [
-      "/media/products/cross-look.jpg",
-      "/media/products/cross-styled.jpg",
-      "/media/products/cross-2xs.jpg",
+      "/media/products/cross-look-v3.jpg",
+      "/media/products/cross-styled-v3.jpg",
+      "/media/products/cross-2xs-v3.jpg",
       "/media/craft/cross-detail.jpg"
     ],
     "sizes": ["XXS", "XS", "S", "M", "L", "XL"],
@@ -30,10 +30,10 @@
     "id": "web-portrait-cami",
     "title": "Web Portrait Cami",
     "price": 52,
-    "image": "/media/products/web-styled.jpg",
+    "image": "/media/products/web-styled-v3.jpg",
     "images": [
-      "/media/products/web-styled.jpg",
-      "/media/products/web-studio.jpg"
+      "/media/products/web-styled-v3.jpg",
+      "/media/products/web-studio-v3.jpg"
     ],
     "sizes": ["XS", "S", "M", "L", "XL"],
     "inStock": true
@@ -45,7 +45,7 @@
     "image": "/media/products/bloom-look.jpg",
     "images": [
       "/media/products/bloom-look.jpg",
-      "/media/products/bloom-styled.jpg"
+      "/media/products/bloom-styled-v3.jpg"
     ],
     "sizes": ["XS", "S", "M", "L", "XL"],
     "inStock": true

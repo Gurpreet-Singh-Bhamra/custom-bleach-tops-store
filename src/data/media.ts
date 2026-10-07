@@ -1,6 +1,6 @@
 export const heroSlides = [
   {
-    src: "/media/products/turtle-styled.jpg",
+    src: "/media/products/turtle-styled-v3.jpg",
     alt: "Sea Turtle bleach cami styled with a silver chain and jeans",
   },
   {
@@ -8,11 +8,11 @@ export const heroSlides = [
     alt: "Butterfly Bloom bleach tee laid on a wood floor",
   },
   {
-    src: "/media/products/web-styled.jpg",
+    src: "/media/products/web-styled-v3.jpg",
     alt: "Web Portrait bleach cami laid out with a bag and belt",
   },
   {
-    src: "/media/products/cross-look.jpg",
+    src: "/media/products/cross-look-v3.jpg",
     alt: "Gothic Cross bleach cami styled with a studded belt",
   },
   {
@@ -42,7 +42,7 @@ export const craftStills = [
 export const processVideo = {
   src: "/media/craft/process-0042.mp4",
   poster: "/media/craft/butterfly-detail.jpg",
-  captions: "/media/craft/process-captions.vtt",
+  captions: "/media/craft/process-captions.vtt?v=2",
 } as const;
 
 export type ProcessClip = {

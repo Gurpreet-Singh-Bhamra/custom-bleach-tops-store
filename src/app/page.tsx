@@ -16,7 +16,9 @@ function publicMedia(filePath: string) {
 }
 
 export default function Home() {
-  const heroVideo = publicMedia("media/hero.mp4");
+  const heroVideo = publicMedia("media/hero.mp4")
+    ? "/media/hero.mp4?v=5"
+    : undefined;
   const clips = [
     publicMedia("media/craft/process-0042.mp4")
       ? {
@@ -27,7 +29,7 @@ export default function Home() {
       : null,
     publicMedia("media/hero.mp4")
       ? {
-          src: "/media/hero.mp4",
+          src: "/media/hero.mp4?v=5",
           poster: "/media/products/butterfly-back.jpg",
           label: "Studio clip",
         }
@@ -60,9 +62,8 @@ export default function Home() {
         <section id="sizing" className="mt-10 scroll-mt-28 pb-8">
           <h2 className="text-xl font-semibold text-stone-950">Sizing</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-stone-600 sm:text-base">
-            Pieces in these photos are tagged 2XS, XS, and M. The shop offers
-            XXS through XL. Choose your usual size for a close fit, or size up
-            if you want more ease through the body.
+            Available in sizes XXS through XL. Choose your usual size for a
+            fitted look, or size up for a more relaxed, oversized fit.
           </p>
         </section>
       </div>
