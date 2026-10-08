@@ -28,9 +28,10 @@ export function HeroMedia({ videoSrc }: HeroMediaProps) {
         <video
           className="absolute inset-0 h-full w-full origin-[48%_88%] scale-[2.05] object-cover object-[center_96%] md:inset-y-0 md:left-auto md:w-[56%] md:origin-[62%_84%] md:scale-[1.62] md:object-[70%_100%]"
           autoPlay
-          muted
           loop
+          muted
           playsInline
+          controls={false}
           poster={heroSlides[0].src}
           preload="metadata"
           width={540}

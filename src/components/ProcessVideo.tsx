@@ -1,13 +1,54 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
-import { craftStills, processVideo, type ProcessClip } from "@/data/media";
+import { craftStills, type ProcessClip } from "@/data/media";
 
 type ProcessVideoProps = {
   clips?: ProcessClip[];
 };
+
+function StudioClip({ clip }: { clip: ProcessClip }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.playsInline = true;
+    void video.play().catch(() => {});
+  }, []);
+
+  return (
+    <figure className="relative overflow-hidden bg-stone-950">
+      <div className="relative aspect-[9/16] w-full">
+        <video
+          ref={videoRef}
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          controls={false}
+          preload="metadata"
+          poster={clip.poster}
+          width={720}
+          height={1280}
+          aria-label={clip.label}
+        >
+          <source src={clip.src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950/90 via-stone-950/45 to-transparent px-3 pb-3 pt-12">
+          <figcaption className="text-xs font-semibold uppercase tracking-[0.16em] text-white">
+            {clip.label}
+          </figcaption>
+        </div>
+      </div>
+    </figure>
+  );
+}
 
 export function ProcessVideo({ clips = [] }: ProcessVideoProps) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -32,30 +73,7 @@ export function ProcessVideo({ clips = [] }: ProcessVideoProps) {
         }`}
       >
         {clips.map((clip) => (
-          <figure key={clip.src} className="overflow-hidden bg-stone-950">
-            <video
-              className="aspect-[9/16] h-auto w-full object-cover"
-              controls
-              playsInline
-              preload="metadata"
-              poster={clip.poster}
-              width={720}
-              height={1280}
-            >
-              <source src={clip.src} type="video/mp4" />
-              <track
-                kind="captions"
-                srcLang="en"
-                src={processVideo.captions}
-                label="English"
-                default
-              />
-              Your browser does not support the video tag.
-            </video>
-            <figcaption className="px-3 py-2 text-xs font-medium uppercase tracking-wider text-stone-300">
-              {clip.label}
-            </figcaption>
-          </figure>
+          <StudioClip key={clip.src} clip={clip} />
         ))}
       </div>
     );

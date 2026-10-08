@@ -1,5 +1,14 @@
 [
   {
+    "id": "tiger-bloom-long-sleeve",
+    "title": "Tiger Bloom Long Sleeve",
+    "price": 48,
+    "image": "/images/products/featured-top.jpg",
+    "images": ["/images/products/featured-top.jpg"],
+    "sizes": ["XXS", "XS", "S", "M", "L", "XL"],
+    "inStock": true
+  },
+  {
     "id": "sea-turtle-cami",
     "title": "Sea Turtle Cami",
     "price": 48,

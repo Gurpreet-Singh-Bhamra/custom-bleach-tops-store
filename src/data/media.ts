@@ -42,7 +42,6 @@ export const craftStills = [
 export const processVideo = {
   src: "/media/craft/process-0042.mp4",
   poster: "/media/craft/butterfly-detail.jpg",
-  captions: "/media/craft/process-captions.vtt?v=2",
 } as const;
 
 export type ProcessClip = {
