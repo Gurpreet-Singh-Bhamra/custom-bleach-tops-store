@@ -5,6 +5,7 @@ import { BehindTheCraft } from "@/components/BehindTheCraft";
 import { CustomOrder } from "@/components/CustomOrder";
 import { HeroMedia } from "@/components/HeroMedia";
 import { ProductCard } from "@/components/ProductCard";
+import { Sizing } from "@/components/Sizing";
 import type { ProcessClip } from "@/data/media";
 import type { Product } from "@/types/product";
 
@@ -41,37 +42,28 @@ export default function Home() {
     <main className="flex-1">
       <HeroMedia videoSrc={heroVideo} />
 
-      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-        <section id="shop" className="scroll-mt-28" aria-label="Products">
-          <div className="mb-6 sm:mb-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rust">
-              This drop
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-stone-950 sm:text-3xl">
-              Custom bleach tops
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
-            {catalog.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
+      <div className="bg-[#0F0F11]">
+        <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+          <section id="shop" className="scroll-mt-28" aria-label="Products">
+            <div className="mb-6 sm:mb-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#E29D62]">
+                This drop
+              </p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                Custom bleach tops
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+              {catalog.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
 
-        <BehindTheCraft clips={clips} />
-
-        <section
-          id="sizing"
-          className="mt-10 scroll-mt-28 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm sm:p-6"
-        >
-          <h2 className="text-xl font-semibold text-stone-950">Sizing</h2>
-          <p className="mt-2 text-sm leading-6 text-stone-600 sm:text-base">
-            Available in sizes XXS through XL. Choose your usual size for a
-            fitted look, or size up for a more relaxed, oversized fit.
-          </p>
-        </section>
-
-        <CustomOrder />
+          <BehindTheCraft clips={clips} />
+          <Sizing />
+          <CustomOrder />
+        </div>
       </div>
     </main>
   );

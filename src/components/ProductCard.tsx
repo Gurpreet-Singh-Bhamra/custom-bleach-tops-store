@@ -30,32 +30,33 @@ export function ProductCard({ product }: ProductCardProps) {
   }
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
+    <article className="flex flex-col overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-900/60">
       <div className="relative">
         <ProductGallery images={product.images} alt={product.title} />
-        <span
-          className={`pointer-events-none absolute left-3 top-3 z-10 rounded-full px-2.5 py-1 text-xs font-semibold ${
-            product.inStock
-              ? "bg-emerald-100 text-emerald-800"
-              : "bg-stone-800 text-stone-100"
-          }`}
-        >
-          {product.inStock ? "In stock" : "Sold out"}
-        </span>
+        {product.inStock ? (
+          <span className="pointer-events-none absolute left-3 top-3 z-10 inline-flex items-center rounded-full border border-white/10 bg-black/80 px-3 py-1 text-xs font-medium text-white shadow-sm backdrop-blur-md">
+            <span className="mr-1.5 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+            In stock
+          </span>
+        ) : (
+          <span className="pointer-events-none absolute left-3 top-3 z-10 rounded-full border border-zinc-700 bg-zinc-800 px-3 py-1 text-xs font-medium text-zinc-300">
+            Sold out
+          </span>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col gap-4 p-4">
         <div className="flex items-start justify-between gap-3">
-          <h2 className="text-base font-semibold leading-snug text-stone-900">
+          <h2 className="text-base font-semibold leading-snug text-white">
             {product.title}
           </h2>
-          <p className="shrink-0 text-base font-medium text-stone-700">
+          <p className="shrink-0 text-base font-medium text-zinc-300">
             {formatPrice(product.price)}
           </p>
         </div>
 
         <fieldset className="space-y-2">
-          <legend className="text-xs font-medium uppercase tracking-wider text-stone-500">
+          <legend className="text-xs font-medium uppercase tracking-wider text-zinc-400">
             Size
           </legend>
           <div className="flex flex-wrap gap-2">
@@ -71,8 +72,8 @@ export function ProductCard({ product }: ProductCardProps) {
                   aria-pressed={isSelected}
                   className={`h-10 min-w-10 rounded-full border px-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
                     isSelected
-                      ? "border-stone-950 bg-stone-950 text-white"
-                      : "border-stone-300 bg-white text-stone-800 hover:border-stone-500"
+                      ? "border-[#E29D62] bg-[#E29D62] text-[#0F0F11]"
+                      : "border-zinc-700 bg-transparent text-zinc-200 hover:border-zinc-500"
                   }`}
                 >
                   {size}
@@ -86,7 +87,7 @@ export function ProductCard({ product }: ProductCardProps) {
           type="button"
           onClick={handleAddToCart}
           disabled={!product.inStock}
-          className="mt-auto h-12 w-full rounded-full bg-stone-950 text-sm font-semibold text-white transition-colors hover:bg-stone-800 disabled:cursor-not-allowed disabled:bg-stone-300 disabled:text-stone-500"
+          className="mt-auto h-12 w-full rounded-full bg-rust text-sm font-semibold text-rust-ink transition-colors hover:bg-rust-hover disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
         >
           {!product.inStock
             ? "Sold out"

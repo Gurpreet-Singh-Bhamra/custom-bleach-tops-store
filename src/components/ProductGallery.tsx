@@ -24,7 +24,7 @@ export function ProductGallery({
   if (slides.length === 0) return null;
 
   return (
-    <div className="relative aspect-[4/5] bg-stone-100">
+    <div className="relative aspect-[4/5] bg-zinc-950">
       <button
         type="button"
         onClick={showNext}
