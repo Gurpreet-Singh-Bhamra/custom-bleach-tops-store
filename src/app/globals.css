@@ -3,11 +3,17 @@
 :root {
   --background: #f6f1e8;
   --foreground: #171412;
+  --rust: #e29d62;
+  --rust-hover: #d18b4f;
+  --rust-ink: #0f0f11;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-rust: var(--rust);
+  --color-rust-hover: var(--rust-hover);
+  --color-rust-ink: var(--rust-ink);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

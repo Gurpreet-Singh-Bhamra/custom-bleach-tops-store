@@ -268,7 +268,7 @@ export function CustomOrder() {
                 }}
                 className={`flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed px-4 py-6 text-center transition-colors ${
                   isDragging
-                    ? "border-amber-400 bg-amber-50"
+                    ? "border-rust bg-rust/15"
                     : "border-stone-300 bg-stone-50 hover:border-stone-500"
                 }`}
               >

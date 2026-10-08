@@ -12,7 +12,7 @@ export function BehindTheCraft({ clips = [] }: BehindTheCraftProps) {
       id="craft"
       className="mt-12 scroll-mt-28 border-t border-stone-300/70 pt-10 sm:mt-16"
     >
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rust">
         Behind the craft
       </p>
       <h2 className="mt-2 text-2xl font-semibold text-stone-950 sm:text-3xl">

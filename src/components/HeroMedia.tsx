@@ -76,7 +76,7 @@ export function HeroMedia({ videoSrc }: HeroMediaProps) {
             videoSrc ? "justify-start md:justify-center md:pr-8" : "justify-end"
           }`}
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-200">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-rust">
             1-of-1 handmade pieces
           </p>
           <h1 className="mt-3 max-w-xl text-[2rem] font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl">
@@ -89,7 +89,7 @@ export function HeroMedia({ videoSrc }: HeroMediaProps) {
           </p>
           <a
             href="#shop"
-            className="mt-6 inline-flex h-12 w-fit items-center rounded-full bg-amber-300 px-6 text-sm font-semibold text-stone-950"
+            className="mt-6 inline-flex h-12 w-fit items-center rounded-full bg-rust px-6 text-sm font-semibold text-rust-ink transition-colors hover:bg-rust-hover"
           >
             Shop Collection
           </a>
@@ -103,7 +103,7 @@ export function HeroMedia({ videoSrc }: HeroMediaProps) {
                   onClick={() => setActiveIndex(index)}
                   className={`h-1.5 rounded-full transition-all ${
                     index === activeIndex
-                      ? "w-8 bg-amber-300"
+                      ? "w-8 bg-rust"
                       : "w-4 bg-white/40"
                   }`}
                   aria-label={`Show ${slide.alt}`}

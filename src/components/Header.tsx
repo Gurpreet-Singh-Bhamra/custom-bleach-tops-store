@@ -90,12 +90,12 @@ export function Header() {
           onClick={openCart}
           aria-expanded={isOpen}
           aria-controls="cart-drawer"
-          className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-stone-700 transition-colors hover:border-amber-300 hover:text-amber-200"
+          className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-stone-700 transition-colors hover:border-rust hover:text-rust"
           aria-label={`Shopping cart, ${itemCount} items`}
         >
           <ShoppingCart className="h-5 w-5" strokeWidth={1.75} />
           {itemCount > 0 ? (
-            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-300 px-1 text-[11px] font-semibold text-stone-950">
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-rust px-1 text-[11px] font-semibold text-rust-ink">
               {itemCount}
             </span>
           ) : null}
@@ -113,7 +113,7 @@ export function Header() {
               href={link.href}
               scroll={false}
               onClick={(event) => handleNavClick(event, link.href)}
-              className="shrink-0 text-stone-300 transition-colors hover:text-amber-200"
+              className="shrink-0 text-stone-300 transition-colors hover:text-rust"
             >
               {link.label}
             </Link>

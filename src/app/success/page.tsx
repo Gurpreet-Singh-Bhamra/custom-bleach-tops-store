@@ -43,7 +43,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
   if (!sessionId) {
     return (
       <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 py-16 sm:px-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rust">
           Checkout
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight text-stone-950">
@@ -75,7 +75,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
   } catch {
     return (
       <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 py-16 sm:px-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rust">
           Checkout
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight text-stone-950">
@@ -113,7 +113,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 py-12 sm:px-6 sm:py-16">
       <ClearCartOnSuccess />
 
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rust">
         {paid ? "Order confirmed" : "Payment pending"}
       </p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">

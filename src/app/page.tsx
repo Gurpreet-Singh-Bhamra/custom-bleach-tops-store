@@ -44,7 +44,7 @@ export default function Home() {
       <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         <section id="shop" className="scroll-mt-28" aria-label="Products">
           <div className="mb-6 sm:mb-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rust">
               This drop
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-stone-950 sm:text-3xl">
