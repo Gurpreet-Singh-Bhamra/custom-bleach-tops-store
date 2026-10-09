@@ -91,7 +91,7 @@ function isAllowedImage(file: File) {
 }
 
 export function isHoneypotFilled(formData: FormData) {
-  return asString(formData.get("company")).length > 0;
+  return asString(formData.get("website_url")).length > 0;
 }
 
 export async function parseCustomRequest(

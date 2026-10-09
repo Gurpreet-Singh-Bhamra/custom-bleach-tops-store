@@ -45,6 +45,7 @@ export function CustomOrder() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
 
   useEffect(() => {
     if (!file || !canPreview(file)) {
@@ -90,20 +91,24 @@ export function CustomOrder() {
     setError(null);
 
     try {
+      const formPayload = new FormData(form);
+      formPayload.set("website_url", honeypot);
+
       const response = await fetch("/api/custom-request", {
         method: "POST",
-        body: new FormData(form),
+        body: formPayload,
       });
-      const payload = (await response.json().catch(() => null)) as
+      const result = (await response.json().catch(() => null)) as
         | { error?: string }
         | null;
 
       if (!response.ok) {
-        throw new Error(payload?.error || "Unable to send your request just now.");
+        throw new Error(result?.error || "Unable to send your request just now.");
       }
 
       form.reset();
       setFile(null);
+      setHoneypot("");
       setIsSuccess(true);
     } catch (submitError) {
       setError(
@@ -152,17 +157,16 @@ export function CustomOrder() {
           </div>
         ) : (
           <form className="mt-8 grid gap-5" onSubmit={handleSubmit}>
-            <label className="sr-only" htmlFor={`${inputId}-company`}>
-              Company
-            </label>
-            <input
-              id={`${inputId}-company`}
-              name="company"
-              type="text"
-              tabIndex={-1}
-              autoComplete="off"
-              className="hidden"
-            />
+            <div className="hidden" aria-hidden="true" tabIndex={-1}>
+              <input
+                type="text"
+                name="website_url"
+                value={honeypot}
+                onChange={(event) => setHoneypot(event.target.value)}
+                autoComplete="off"
+                tabIndex={-1}
+              />
+            </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="grid gap-2 text-sm font-medium text-zinc-300">

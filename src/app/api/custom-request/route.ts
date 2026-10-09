@@ -62,21 +62,25 @@ export async function POST(request: Request) {
   console.log("OWNER_EMAIL:", process.env.OWNER_EMAIL);
   console.log("RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY);
 
-  if (!process.env.RESEND_API_KEY) {
-    return NextResponse.json(
-      { error: "RESEND_API_KEY is not defined in .env.local" },
-      { status: 500 },
-    );
-  }
-
   try {
     const formData = await request.formData();
+    const websiteUrlValue = formData.get("website_url");
+    const websiteUrl =
+      typeof websiteUrlValue === "string" ? websiteUrlValue.trim() : "";
 
-    if (isHoneypotFilled(formData)) {
-      return NextResponse.json({
-        success: true,
-        message: "Custom request received!",
-      });
+    if (websiteUrl || isHoneypotFilled(formData)) {
+      console.warn("Spam bot submission caught by honeypot!");
+      return NextResponse.json(
+        { success: true, message: "Request received!" },
+        { status: 200 },
+      );
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json(
+        { error: "RESEND_API_KEY is not defined in .env.local" },
+        { status: 500 },
+      );
     }
 
     const customRequest = await parseCustomRequest(formData);
