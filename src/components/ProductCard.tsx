@@ -11,7 +11,7 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useCart();
+  const { addToCart, openCart } = useCart();
   const [selectedSize, setSelectedSize] = useState<Size>(product.sizes[0]);
   const [justAdded, setJustAdded] = useState(false);
 
@@ -25,6 +25,7 @@ export function ProductCard({ product }: ProductCardProps) {
       size: selectedSize,
       image: product.image,
     });
+    openCart();
     setJustAdded(true);
     window.setTimeout(() => setJustAdded(false), 1400);
   }
@@ -32,7 +33,11 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-900/60">
       <div className="relative">
-        <ProductGallery images={product.images} alt={product.title} />
+        <ProductGallery
+          images={product.images}
+          alt={product.title}
+          priority={product.image === "/media/products/bloom-look.jpg"}
+        />
         {product.inStock ? (
           <span className="pointer-events-none absolute left-3 top-3 z-10 inline-flex items-center rounded-full border border-white/10 bg-black/80 px-3 py-1 text-xs font-medium text-white shadow-sm backdrop-blur-md">
             <span className="mr-1.5 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />

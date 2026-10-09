@@ -49,7 +49,9 @@ export function HeroMedia({ videoSrc }: HeroMediaProps) {
               src={slide.src}
               alt={slide.alt}
               fill
-              priority={index === 0}
+              priority={
+                index === 0 || slide.src === "/media/products/bloom-look.jpg"
+              }
               sizes="100vw"
               className={`object-cover object-[center_42%] transition-opacity duration-700 ease-out ${
                 index === activeIndex ? "opacity-100" : "opacity-0"
