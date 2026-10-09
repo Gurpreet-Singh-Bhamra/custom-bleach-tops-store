@@ -146,7 +146,7 @@ export function CartDrawer() {
         type="button"
         aria-label="Close cart"
         onClick={closeCart}
-        className={`absolute inset-0 bg-stone-950/50 transition-opacity duration-300 ${
+        className={`absolute inset-0 bg-black/70 backdrop-blur-[2px] transition-opacity duration-300 ${
           isOpen ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -157,16 +157,16 @@ export function CartDrawer() {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className={`absolute inset-y-0 right-0 flex h-full w-[calc(100%-2.75rem)] max-w-md flex-col bg-white text-stone-950 shadow-2xl transition-transform duration-300 ease-out ${
+        className={`absolute inset-y-0 right-0 flex h-full w-[calc(100%-2.75rem)] max-w-md flex-col border-l border-zinc-800 bg-zinc-900 text-zinc-100 shadow-2xl transition-transform duration-300 ease-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-stone-200 px-4 py-4 sm:px-5">
+        <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-4 sm:px-5">
           <div>
-            <h2 id={titleId} className="text-lg font-semibold">
+            <h2 id={titleId} className="text-lg font-semibold text-white">
               Your cart
             </h2>
-            <p className="text-sm text-stone-500">
+            <p className="text-sm text-zinc-400">
               {itemCount === 0
                 ? "No items yet"
                 : `${itemCount} ${itemCount === 1 ? "item" : "items"}`}
@@ -176,7 +176,7 @@ export function CartDrawer() {
             ref={closeButtonRef}
             type="button"
             onClick={closeCart}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-stone-200 transition-colors hover:border-stone-400"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-800 text-zinc-200 transition-colors hover:border-zinc-600 hover:bg-zinc-800 hover:text-white"
             aria-label="Close cart"
           >
             <X className="h-5 w-5" strokeWidth={1.75} />
@@ -185,16 +185,16 @@ export function CartDrawer() {
 
         {items.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
-            <p className="text-base font-medium text-stone-800">
+            <p className="text-base font-medium text-white">
               Your cart is empty
             </p>
-            <p className="mt-1 text-sm text-stone-500">
+            <p className="mt-1 text-sm text-zinc-400">
               Add a bleach top to see it here.
             </p>
             <button
               type="button"
               onClick={closeCart}
-              className="mt-6 h-11 rounded-full bg-stone-950 px-5 text-sm font-semibold text-white"
+              className="mt-6 h-11 rounded-full bg-rust px-5 text-sm font-semibold text-rust-ink transition-colors hover:bg-rust-hover"
             >
               Continue shopping
             </button>
@@ -207,9 +207,9 @@ export function CartDrawer() {
               return (
                 <li
                   key={`${item.productId}-${item.size}`}
-                  className="flex gap-3 border-b border-stone-100 pb-4 last:border-b-0"
+                  className="flex gap-3 border-b border-zinc-800 pb-4 last:border-b-0"
                 >
-                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-stone-100">
+                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-zinc-800">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -222,18 +222,20 @@ export function CartDrawer() {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <p className="truncate font-medium">{item.title}</p>
-                        <p className="mt-0.5 text-sm text-stone-500">
+                        <p className="truncate font-medium text-white">
+                          {item.title}
+                        </p>
+                        <p className="mt-0.5 text-sm text-zinc-400">
                           Size {item.size}
                         </p>
                       </div>
-                      <p className="shrink-0 text-sm font-semibold">
+                      <p className="shrink-0 text-sm font-semibold text-zinc-100">
                         {formatPrice(lineTotal)}
                       </p>
                     </div>
 
                     <div className="mt-3 flex items-center justify-between gap-3">
-                      <div className="inline-flex items-center rounded-full border border-stone-200">
+                      <div className="inline-flex items-center rounded-full border border-zinc-800">
                         <button
                           type="button"
                           onClick={() =>
@@ -244,13 +246,13 @@ export function CartDrawer() {
                             )
                           }
                           disabled={item.quantity <= 1}
-                          className="inline-flex h-10 w-10 items-center justify-center rounded-l-full disabled:opacity-40"
+                          className="inline-flex h-10 w-10 items-center justify-center rounded-l-full text-zinc-200 transition-colors hover:bg-zinc-800 hover:text-white disabled:opacity-40"
                           aria-label={`Decrease quantity of ${item.title} size ${item.size}`}
                         >
                           <Minus className="h-4 w-4" />
                         </button>
                         <span
-                          className="min-w-6 text-center text-sm font-medium"
+                          className="min-w-6 text-center text-sm font-medium text-zinc-100"
                           aria-live="polite"
                         >
                           {item.quantity}
@@ -264,7 +266,7 @@ export function CartDrawer() {
                               item.quantity + 1,
                             )
                           }
-                          className="inline-flex h-10 w-10 items-center justify-center rounded-r-full"
+                          className="inline-flex h-10 w-10 items-center justify-center rounded-r-full text-zinc-200 transition-colors hover:bg-zinc-800 hover:text-white"
                           aria-label={`Increase quantity of ${item.title} size ${item.size}`}
                         >
                           <Plus className="h-4 w-4" />
@@ -274,7 +276,7 @@ export function CartDrawer() {
                       <button
                         type="button"
                         onClick={() => removeItem(item.productId, item.size)}
-                        className="inline-flex h-10 items-center gap-1.5 rounded-full px-2 text-sm text-stone-500 transition-colors hover:text-red-600"
+                        className="inline-flex h-10 items-center gap-1.5 rounded-full border border-zinc-800 px-3 text-sm text-zinc-300 transition-colors hover:border-zinc-600 hover:bg-zinc-800 hover:text-white"
                         aria-label={`Remove ${item.title} size ${item.size} from cart`}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -288,13 +290,15 @@ export function CartDrawer() {
           </ul>
         )}
 
-        <div className="border-t border-stone-200 px-4 py-4 sm:px-5">
+        <div className="border-t border-zinc-800 px-4 py-4 sm:px-5">
           <div className="mb-4 flex items-center justify-between">
-            <span className="text-sm font-medium text-stone-500">Subtotal</span>
-            <span className="text-lg font-semibold">{formatPrice(subtotal)}</span>
+            <span className="text-sm font-medium text-zinc-400">Subtotal</span>
+            <span className="text-lg font-semibold text-white">
+              {formatPrice(subtotal)}
+            </span>
           </div>
           {checkoutError ? (
-            <p className="mb-3 text-sm text-red-600" role="alert">
+            <p className="mb-3 text-sm text-red-400" role="alert">
               {checkoutError}
             </p>
           ) : null}
@@ -302,7 +306,7 @@ export function CartDrawer() {
             type="button"
             onClick={handleCheckout}
             disabled={items.length === 0 || isCheckingOut}
-            className="h-12 w-full rounded-full bg-stone-950 text-sm font-semibold text-white transition-colors hover:bg-stone-800 disabled:cursor-not-allowed disabled:bg-stone-300 disabled:text-stone-500"
+            className="h-12 w-full rounded-full bg-rust text-sm font-semibold text-rust-ink transition-colors hover:bg-rust-hover disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-500"
           >
             {isCheckingOut ? "Redirecting to Stripe…" : "Proceed to Checkout"}
           </button>

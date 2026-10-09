@@ -2,7 +2,7 @@
   {
     "id": "tiger-bloom-long-sleeve",
     "title": "Tiger Bloom Long Sleeve",
-    "price": 48,
+    "price": 35,
     "image": "/images/products/featured-top.jpg",
     "images": ["/images/products/featured-top.jpg"],
     "sizes": ["XXS", "XS", "S", "M", "L", "XL"],
@@ -11,7 +11,7 @@
   {
     "id": "sea-turtle-cami",
     "title": "Sea Turtle Cami",
-    "price": 48,
+    "price": 22,
     "image": "/media/products/turtle-styled-v3.jpg",
     "images": [
       "/media/products/turtle-styled-v3.jpg",
@@ -24,7 +24,7 @@
   {
     "id": "gothic-cross-cami",
     "title": "Gothic Cross Cami",
-    "price": 52,
+    "price": 25,
     "image": "/media/products/cross-look-v3.jpg",
     "images": [
       "/media/products/cross-look-v3.jpg",
@@ -38,7 +38,7 @@
   {
     "id": "web-portrait-cami",
     "title": "Web Portrait Cami",
-    "price": 52,
+    "price": 25,
     "image": "/media/products/web-styled-v3.jpg",
     "images": [
       "/media/products/web-styled-v3.jpg",
@@ -50,7 +50,7 @@
   {
     "id": "night-bloom-cami",
     "title": "Night Bloom Cami",
-    "price": 48,
+    "price": 22,
     "image": "/media/products/bloom-look.jpg",
     "images": [
       "/media/products/bloom-look.jpg",
@@ -62,7 +62,7 @@
   {
     "id": "butterfly-bloom-tee",
     "title": "Butterfly Bloom Tee",
-    "price": 48,
+    "price": 28,
     "image": "/media/products/butterfly-back.jpg",
     "images": [
       "/media/products/butterfly-back.jpg",
