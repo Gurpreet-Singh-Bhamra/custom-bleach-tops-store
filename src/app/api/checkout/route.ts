@@ -6,15 +6,7 @@ import type { Product } from "@/types/product";
 
 const products = catalog as Product[];
 
-const SHIPPING_COUNTRIES = [
-  "GB",
-  "US",
-  "CA",
-  "AU",
-  "IE",
-  "FR",
-  "DE",
-] as const;
+const SHIPPING_COUNTRIES = ["GB", "US", "CA", "AU", "DE", "FR"] as const;
 
 type IncomingItem = {
   title?: unknown;
@@ -108,28 +100,42 @@ export async function POST(request: Request) {
         {
           shipping_rate_data: {
             type: "fixed_amount",
-            display_name: "UK Standard Delivery",
+            display_name: "UK Standard Shipping",
             fixed_amount: {
               amount: toMinorUnits(3.99),
               currency: CHECKOUT_CURRENCY,
             },
             delivery_estimate: {
-              minimum: { unit: "business_day", value: 2 },
-              maximum: { unit: "business_day", value: 4 },
+              minimum: { unit: "business_day", value: 3 },
+              maximum: { unit: "business_day", value: 5 },
             },
           },
         },
         {
           shipping_rate_data: {
             type: "fixed_amount",
-            display_name: "International Tracked",
+            display_name: "UK Express Shipping",
             fixed_amount: {
-              amount: toMinorUnits(12.99),
+              amount: toMinorUnits(6.99),
+              currency: CHECKOUT_CURRENCY,
+            },
+            delivery_estimate: {
+              minimum: { unit: "business_day", value: 1 },
+              maximum: { unit: "business_day", value: 2 },
+            },
+          },
+        },
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            display_name: "International Tracked Shipping (USA & Rest of World)",
+            fixed_amount: {
+              amount: toMinorUnits(16.99),
               currency: CHECKOUT_CURRENCY,
             },
             delivery_estimate: {
               minimum: { unit: "business_day", value: 5 },
-              maximum: { unit: "business_day", value: 10 },
+              maximum: { unit: "business_day", value: 9 },
             },
           },
         },
