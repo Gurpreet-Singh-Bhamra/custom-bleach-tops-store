@@ -352,7 +352,7 @@ export function CustomOrder() {
                     <p className="mt-3 text-sm font-medium text-zinc-200">
                       Drop an image here, or tap to browse
                     </p>
-                    <p className="mt-1 text-xs text-zinc-500">
+                    <p className="mt-1 text-xs text-zinc-400">
                       JPG, PNG, WEBP, or HEIC · up to 8MB
                     </p>
                   </>

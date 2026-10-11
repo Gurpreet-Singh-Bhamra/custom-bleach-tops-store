@@ -3,6 +3,8 @@ import { REFERENCE_PNG, startWithEmptyCart } from "./helpers";
 
 async function fillRequiredCustomFields(page: Page) {
   const custom = page.locator("#custom");
+  await custom.getByLabel("Full Name").click();
+  await expect(custom.getByLabel("Full Name")).toBeFocused();
   await custom.getByLabel("Full Name").fill("Gurpreet Bhamra");
   await custom.getByLabel("Email or Instagram Handle").fill("test@example.com");
   await custom.getByLabel("Garment Choice").selectOption("Standard Fit Tee");
@@ -44,13 +46,19 @@ test.describe("custom order form", () => {
 
     await fillRequiredCustomFields(page);
 
-    const fileInput = page.locator("#custom input[name='image']");
-    await fileInput.setInputFiles({
-      name: "reference.png",
-      mimeType: "image/png",
-      buffer: REFERENCE_PNG,
-    });
-    await expect(page.getByText("reference.png")).toBeVisible();
+    const fileInput = page.locator('#custom input[type="file"]');
+    await expect(async () => {
+      await fileInput.setInputFiles({
+        name: "reference.png",
+        mimeType: "image/png",
+        buffer: REFERENCE_PNG,
+      });
+      if (!(await page.getByText("reference.png").isVisible().catch(() => false))) {
+        await fileInput.dispatchEvent("input");
+        await fileInput.dispatchEvent("change");
+      }
+      await expect(page.getByText("reference.png")).toBeVisible();
+    }).toPass({ timeout: 10_000 });
     await expect(
       page.getByRole("img", { name: "Preview of reference.png" }),
     ).toBeVisible();

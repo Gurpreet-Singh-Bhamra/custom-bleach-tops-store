@@ -13,8 +13,30 @@ export default defineConfig({
     timeout: 120 * 1000,
   },
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      testIgnore: /mobile-responsive\.spec\.ts/,
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+      testIgnore: /mobile-responsive\.spec\.ts/,
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+      testIgnore: /mobile-responsive\.spec\.ts/,
+    },
+    {
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 7'] },
+      testMatch: /mobile-responsive\.spec\.ts/,
+    },
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 14'] },
+      testMatch: /mobile-responsive\.spec\.ts/,
+    },
   ],
 });

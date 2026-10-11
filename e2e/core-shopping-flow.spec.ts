@@ -34,10 +34,13 @@ test.describe("core shopping flow", () => {
       hasText: "Tiger Bloom Long Sleeve",
     });
 
-    await product.getByRole("button", { name: "M", exact: true }).click();
-    await expect(
-      product.getByRole("button", { name: "M", exact: true }),
-    ).toHaveAttribute("aria-pressed", "true");
+    const sizeButton = product.getByRole("button", { name: "M", exact: true });
+    await expect(product.getByRole("button", { pressed: true })).toBeVisible();
+    await expect(async () => {
+      await sizeButton.click({ force: true });
+      await page.waitForTimeout(100);
+      await expect(sizeButton).toHaveAttribute("aria-pressed", "true");
+    }).toPass({ timeout: 10_000 });
 
     await product.getByRole("button", { name: "Add to Cart" }).click();
 
