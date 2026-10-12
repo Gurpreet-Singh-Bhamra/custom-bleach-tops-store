@@ -6,7 +6,71 @@ import type { Product } from "@/types/product";
 
 const products = catalog as Product[];
 
-const SHIPPING_COUNTRIES = ["GB", "US", "CA", "AU", "DE", "FR"] as const;
+const UK_SHIPPING_COUNTRIES = ["GB"] as const;
+
+const EUROPE_SHIPPING_COUNTRIES = [
+  "AT",
+  "BE",
+  "BG",
+  "HR",
+  "CY",
+  "CZ",
+  "DK",
+  "EE",
+  "FI",
+  "FR",
+  "DE",
+  "GR",
+  "HU",
+  "IE",
+  "IT",
+  "LV",
+  "LT",
+  "LU",
+  "MT",
+  "NL",
+  "PL",
+  "PT",
+  "RO",
+  "SK",
+  "SI",
+  "ES",
+  "SE",
+  "NO",
+  "CH",
+  "IS",
+  "LI",
+] as const;
+
+const REST_OF_WORLD_SHIPPING_COUNTRIES = [
+  "US",
+  "CA",
+  "MX",
+  "AU",
+  "NZ",
+  "JP",
+  "KR",
+  "SG",
+  "HK",
+  "AE",
+  "IL",
+  "ZA",
+  "BR",
+  "AR",
+  "IN",
+  "ID",
+  "MY",
+  "PH",
+  "TH",
+  "TW",
+  "VN",
+] as const;
+
+const SHIPPING_COUNTRIES = [
+  ...UK_SHIPPING_COUNTRIES,
+  ...EUROPE_SHIPPING_COUNTRIES,
+  ...REST_OF_WORLD_SHIPPING_COUNTRIES,
+] as const;
 
 type IncomingItem = {
   title?: unknown;
@@ -115,28 +179,28 @@ export async function POST(request: Request) {
         {
           shipping_rate_data: {
             type: "fixed_amount",
-            display_name: "UK Express Shipping",
+            display_name: "Europe Shipping",
             fixed_amount: {
-              amount: toMinorUnits(6.99),
+              amount: toMinorUnits(9.99),
               currency: CHECKOUT_CURRENCY,
             },
             delivery_estimate: {
-              minimum: { unit: "business_day", value: 1 },
-              maximum: { unit: "business_day", value: 2 },
+              minimum: { unit: "business_day", value: 5 },
+              maximum: { unit: "business_day", value: 10 },
             },
           },
         },
         {
           shipping_rate_data: {
             type: "fixed_amount",
-            display_name: "International Tracked Shipping (USA & Rest of World)",
+            display_name: "Rest of World Shipping",
             fixed_amount: {
-              amount: toMinorUnits(16.99),
+              amount: toMinorUnits(14.99),
               currency: CHECKOUT_CURRENCY,
             },
             delivery_estimate: {
-              minimum: { unit: "business_day", value: 5 },
-              maximum: { unit: "business_day", value: 9 },
+              minimum: { unit: "business_day", value: 7 },
+              maximum: { unit: "business_day", value: 14 },
             },
           },
         },
