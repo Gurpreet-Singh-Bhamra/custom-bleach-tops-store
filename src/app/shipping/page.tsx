@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { PolicyLayout, PolicySection } from "@/components/PolicyLayout";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Delivery & Shipping Info — Bleach Tops",
 };

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { formatPrice } from "@/lib/money";
 import { useCart } from "./CartProvider";
 import { ProductGallery } from "./ProductGallery";
+import { ProductPolicyAccordions } from "./ProductPolicyAccordions";
 import type { Product, Size } from "@/types/product";
 
 type ProductCardProps = {
@@ -100,6 +101,8 @@ export function ProductCard({ product }: ProductCardProps) {
               ? "Added to cart"
               : "Add to Cart"}
         </button>
+
+        <ProductPolicyAccordions />
       </div>
     </article>
   );

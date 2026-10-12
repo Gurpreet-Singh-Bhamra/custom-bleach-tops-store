@@ -1,6 +1,24 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, type Locator, type Page } from "@playwright/test";
 
 export const POUND_PRICE = /£\d+\.00/;
+
+export async function scanWcag21Aa(page: Page, include?: string) {
+  const builder = new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+    .exclude("nextjs-portal")
+    .disableRules(["meta-viewport"]);
+
+  if (include) {
+    builder.include(include);
+  }
+
+  const results = await builder.analyze();
+  return results.violations.filter(
+    (violation) =>
+      violation.impact === "critical" || violation.impact === "serious",
+  );
+}
 
 export const REFERENCE_PNG = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
@@ -84,6 +102,36 @@ export async function expectNoHorizontalPageScroll(page: Page) {
 
   expect(overflow.root, "documentElement should not scroll horizontally").toBeLessThanOrEqual(1);
   expect(overflow.body, "body should not scroll horizontally").toBeLessThanOrEqual(1);
+}
+
+export async function expectKeyboardFocusable(locator: Locator) {
+  await locator.scrollIntoViewIfNeeded();
+  const tabIndex = await locator.evaluate((el: HTMLElement) => el.tabIndex);
+  expect(tabIndex, "element should be in the tab order").toBeGreaterThanOrEqual(
+    0,
+  );
+  await locator.focus();
+  await expect(locator).toBeFocused();
+}
+
+export async function expectAccordionState(trigger: Locator, expanded: boolean) {
+  await expect(trigger).toHaveAttribute(
+    "aria-expanded",
+    expanded ? "true" : "false",
+  );
+  const panelId = await trigger.getAttribute("aria-controls");
+  expect(panelId, "accordion should expose aria-controls").toBeTruthy();
+  const panel = trigger.page().locator(`[id="${panelId}"]`);
+  await expect(panel).toHaveJSProperty("inert", !expanded);
+  if (expanded) {
+    await expect
+      .poll(async () => Math.round((await panel.boundingBox())?.height ?? 0))
+      .toBeGreaterThan(8);
+  } else {
+    await expect
+      .poll(async () => Math.round((await panel.boundingBox())?.height ?? 0))
+      .toBeLessThan(2);
+  }
 }
 
 export async function expectInViewport(locator: Locator, label: string) {

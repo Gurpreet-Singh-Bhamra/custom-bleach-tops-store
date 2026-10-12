@@ -82,4 +82,24 @@ test.describe("mobile responsive layout", () => {
 
     await expectNoHorizontalPageScroll(page);
   });
+
+  test("product policy accordions stay inside the viewport when expanded", async ({
+    page,
+  }) => {
+    await gotoStore(page, "/#shop");
+    const product = page.getByRole("article").filter({
+      hasText: "Tiger Bloom Long Sleeve",
+    });
+    const delivery = product.getByRole("button", { name: "Delivery & Shipping" });
+    await delivery.scrollIntoViewIfNeeded();
+    await delivery.click();
+
+    const policyLink = product.getByRole("link", {
+      name: "View full delivery policy",
+    });
+    await expect(policyLink).toBeVisible();
+    await expectInViewport(delivery, "delivery accordion header");
+    await expectInViewport(policyLink, "delivery policy link");
+    await expectNoHorizontalPageScroll(page);
+  });
 });

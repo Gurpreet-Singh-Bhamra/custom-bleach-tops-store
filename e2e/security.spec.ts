@@ -10,10 +10,19 @@ const REQUIRED_API_HEADERS = {
   "referrer-policy": "strict-origin-when-cross-origin",
 } as const;
 
+const POLICY_ROUTES = ["/shipping", "/returns"] as const;
+
 async function expectApiSecurityHeaders(headers: Record<string, string>) {
   for (const [name, value] of Object.entries(REQUIRED_API_HEADERS)) {
     expect(headers[name], `${name} should be set`).toBe(value);
   }
+}
+
+async function expectPolicySecurityHeaders(headers: Record<string, string>) {
+  await expectApiSecurityHeaders(headers);
+  const csp = headers["content-security-policy"] ?? "";
+  expect(csp, "Content-Security-Policy should be set").toMatch(/default-src 'self'/);
+  expect(csp).toMatch(/frame-ancestors 'none'/);
 }
 
 test.describe("security", () => {
@@ -125,5 +134,68 @@ test.describe("security", () => {
     expect(postedName).toBe(SCRIPT_PAYLOAD);
     expect(postedNotes).toBe(EVENT_PAYLOAD);
     expect(dialogs).toEqual([]);
+  });
+
+  test("policy pages send security headers", async ({ request }) => {
+    for (const path of POLICY_ROUTES) {
+      const response = await request.get(path);
+      expect(response.status(), `${path} status`).toBe(200);
+      await expectPolicySecurityHeaders(response.headers());
+    }
+  });
+
+  test("policy page mailto and internal links render without unsafe targets", async ({
+    page,
+  }) => {
+    for (const path of POLICY_ROUTES) {
+      await gotoStore(page, path);
+
+      const links = await page.locator("a[href]").evaluateAll((anchors) =>
+        anchors
+          .filter((anchor) => !anchor.closest("nextjs-portal"))
+          .map((anchor) => ({
+            href: anchor.getAttribute("href") ?? "",
+            target: anchor.getAttribute("target"),
+            rel: anchor.getAttribute("rel") ?? "",
+          })),
+      );
+
+      expect(links.length, `${path} should render links`).toBeGreaterThan(0);
+
+      for (const link of links) {
+        expect(link.href, `${path} link must not use javascript:`).not.toMatch(
+          /^javascript:/i,
+        );
+        expect(link.href, `${path} link must not use data:`).not.toMatch(
+          /^data:/i,
+        );
+
+        if (link.target === "_blank") {
+          expect(link.rel).toMatch(/noopener/);
+        }
+
+        if (link.href.startsWith("mailto:")) {
+          expect(link.href).toBe("mailto:orders@jbdesignz.uk");
+          expect(link.target === null || link.target === "" || link.target === "_self").toBe(
+            true,
+          );
+        }
+
+        const isInternal =
+          link.href.startsWith("/") ||
+          link.href.startsWith("#") ||
+          link.href.startsWith("http://localhost");
+        if (isInternal) {
+          expect(link.target, `${link.href} should stay in-app`).not.toBe("_blank");
+        }
+      }
+
+      await expect(
+        page.getByRole("link", { name: "orders@jbdesignz.uk" }),
+      ).toHaveAttribute("href", "mailto:orders@jbdesignz.uk");
+      await expect(
+        page.getByRole("link", { name: "Return to shop" }),
+      ).toHaveAttribute("href", "/");
+    }
   });
 });
