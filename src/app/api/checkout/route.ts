@@ -90,6 +90,7 @@ export async function POST(request: Request) {
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      allow_promotion_codes: true,
       locale: "en-GB",
       submit_type: "pay",
       billing_address_collection: "required",
