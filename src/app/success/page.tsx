@@ -136,7 +136,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
             </p>
           </div>
           <p className="text-xs font-medium uppercase tracking-wider text-stone-400">
-            {session.id}
+            #{session.id.slice(-8)}
           </p>
         </div>
 
