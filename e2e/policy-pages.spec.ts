@@ -27,38 +27,34 @@ function tigerBloom(page: Page) {
   return page.getByRole("article").filter({ hasText: "Tiger Bloom Long Sleeve" });
 }
 
-async function setAccordionExpanded(header: Locator, expanded: boolean) {
-  await header.scrollIntoViewIfNeeded();
-  const desired = expanded ? "true" : "false";
+async function setAccordionExpanded(
+  header: Locator,
+  desired: "true" | "false",
+) {
   await expect(async () => {
-    if ((await header.getAttribute("aria-expanded")) === desired) return;
-    await header.click({ force: true });
-    await expect(header).toHaveAttribute("aria-expanded", desired);
-  }).toPass({ timeout: 10_000 });
-}
+    const current = await header.getAttribute("aria-expanded");
+    if (current === desired) return;
 
-async function openAccordionHeader(header: Locator) {
-  await setAccordionExpanded(header, true);
+    await header.evaluate((el) => el.scrollIntoView({ block: "center" }));
+    await header.click({ force: true });
+
+    await expect(header).toHaveAttribute("aria-expanded", desired, {
+      timeout: 1000,
+    });
+  }).toPass({ timeout: 10000 });
 }
 
 async function followAccordionCta(
   page: Page,
-  header: Locator,
+  accordionTrigger: Locator,
   ctaLink: Locator,
-  url: "/shipping" | "/returns",
+  expectedPath: "/shipping" | "/returns",
 ) {
-  await openAccordionHeader(header);
-  await expectAccordionState(header, true);
-  await expect
-    .poll(async () => Math.round((await ctaLink.boundingBox())?.height ?? 0))
-    .toBeGreaterThan(8);
-  await ctaLink.evaluate((el) =>
-    el.scrollIntoView({ block: "center", inline: "nearest" }),
-  );
+  await setAccordionExpanded(accordionTrigger, "true");
+  await expect(ctaLink).toBeVisible({ timeout: 5000 });
   await ctaLink.scrollIntoViewIfNeeded();
-  await expect(ctaLink).toBeVisible();
   await ctaLink.click();
-  await expect(page).toHaveURL(new RegExp(`${url}$`));
+  await expect(page).toHaveURL(new RegExp(expectedPath + "$"), { timeout: 10000 });
 }
 
 test.describe("policy pages and PDP accordions", () => {
@@ -136,23 +132,23 @@ test.describe("policy pages and PDP accordions", () => {
         await expectAccordionState(delivery, false);
         await expectAccordionState(returns, false);
 
-        await setAccordionExpanded(delivery, true);
+        await setAccordionExpanded(delivery, "true");
         await expectAccordionState(delivery, true);
         await expect(deliveryPolicy).toBeVisible();
         await expect(product.getByText("UK Standard: £3.99")).toBeVisible();
         await expectAccordionState(returns, false);
 
-        await setAccordionExpanded(returns, true);
+        await setAccordionExpanded(returns, "true");
         await expectAccordionState(returns, true);
         await expectAccordionState(delivery, true);
         await expect(returnsPolicy).toBeVisible();
         await expect(product.getByText("Custom/bespoke orders are non-refundable")).toBeVisible();
 
-        await setAccordionExpanded(delivery, false);
+        await setAccordionExpanded(delivery, "false");
         await expectAccordionState(delivery, false);
         await expectAccordionState(returns, true);
 
-        await setAccordionExpanded(returns, false);
+        await setAccordionExpanded(returns, "false");
         await expectAccordionState(returns, false);
       });
 
@@ -175,6 +171,7 @@ test.describe("policy pages and PDP accordions", () => {
         await gotoStore(page, "/#shop");
 
         const productAgain = tigerBloom(page);
+        await expect(productAgain.getByRole("button", { pressed: true })).toBeVisible();
         const returnsBtn = productAgain.getByRole("button", {
           name: "Returns & Care",
         });

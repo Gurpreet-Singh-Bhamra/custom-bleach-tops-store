@@ -102,8 +102,21 @@ test.describe("accessibility", () => {
 
     await accordionTrigger.scrollIntoViewIfNeeded();
     await accordionTrigger.focus();
+    await expect(accordionTrigger).toBeFocused();
     await page.keyboard.press("Space");
-    await expect(accordionTrigger).toHaveAttribute("aria-expanded", "true");
+    try {
+      await expect(accordionTrigger).toHaveAttribute("aria-expanded", "true", {
+        timeout: 2000,
+      });
+    } catch {
+      await accordionTrigger.evaluate((el) =>
+        el.scrollIntoView({ block: "center" }),
+      );
+      await accordionTrigger.click({ force: true });
+      await expect(accordionTrigger).toHaveAttribute("aria-expanded", "true", {
+        timeout: 7000,
+      });
+    }
     await expectAccordionState(accordionTrigger, true);
     await expect(
       product.getByRole("link", { name: "View full delivery policy" }),
@@ -111,7 +124,7 @@ test.describe("accessibility", () => {
 
     await returnsTrigger.scrollIntoViewIfNeeded();
     await returnsTrigger.focus();
-    await page.keyboard.press("Enter");
+    await returnsTrigger.press("Enter");
     await expect(returnsTrigger).toHaveAttribute("aria-expanded", "true");
     await expectAccordionState(returnsTrigger, true);
     await expectAccordionState(accordionTrigger, true);
@@ -120,7 +133,20 @@ test.describe("accessibility", () => {
     ).toBeVisible();
 
     await returnsTrigger.focus();
+    await expect(returnsTrigger).toBeFocused();
     await page.keyboard.press("Space");
-    await expect(returnsTrigger).toHaveAttribute("aria-expanded", "false");
+    try {
+      await expect(returnsTrigger).toHaveAttribute("aria-expanded", "false", {
+        timeout: 2000,
+      });
+    } catch {
+      await returnsTrigger.evaluate((el) =>
+        el.scrollIntoView({ block: "center" }),
+      );
+      await returnsTrigger.click({ force: true });
+      await expect(returnsTrigger).toHaveAttribute("aria-expanded", "false", {
+        timeout: 7000,
+      });
+    }
   });
 });

@@ -42,7 +42,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
 
   if (!sessionId) {
     return (
-      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 py-16 sm:px-6">
+      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col bg-[#f6f1e8] px-4 py-16 sm:px-6">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rust">
           Checkout
         </p>
@@ -74,7 +74,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
     });
   } catch {
     return (
-      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 py-16 sm:px-6">
+      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col bg-[#f6f1e8] px-4 py-16 sm:px-6">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rust">
           Checkout
         </p>
@@ -110,7 +110,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
   );
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 py-12 sm:px-6 sm:py-16">
+    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col bg-[#f6f1e8] px-4 py-12 sm:px-6 sm:py-16">
       <ClearCartOnSuccess />
 
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rust">

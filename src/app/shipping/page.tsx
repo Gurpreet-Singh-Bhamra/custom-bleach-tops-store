@@ -58,7 +58,7 @@ export default function ShippingPage() {
           delivery questions, contact customer support at{" "}
           <a
             href="mailto:orders@jbdesignz.uk"
-            className="font-medium text-rust hover:text-rust-hover"
+            className="font-medium text-rust transition-colors hover:underline"
           >
             orders@jbdesignz.uk
           </a>

@@ -47,18 +47,18 @@ test.describe("core shopping flow", () => {
     const drawer = await expectDarkDrawer(page);
     await expect(drawer.getByText("Tiger Bloom Long Sleeve")).toBeVisible();
     await expect(drawer.getByText("Size M")).toBeVisible();
-    await expect(drawer.getByText("£35.00")).toHaveCount(2);
+    await expect(drawer.getByText("£25.00")).toHaveCount(2);
 
     await drawer
       .getByRole("button", { name: /Increase quantity of Tiger Bloom/ })
       .click();
-    await expect(drawer.getByText("£70.00")).toHaveCount(2);
+    await expect(drawer.getByText("£50.00")).toHaveCount(2);
     await expect(page.getByRole("button", { name: /Shopping cart, 2 items/ })).toBeVisible();
 
     await drawer
       .getByRole("button", { name: /Decrease quantity of Tiger Bloom/ })
       .click();
-    await expect(drawer.getByText("£35.00")).toHaveCount(2);
+    await expect(drawer.getByText("£25.00")).toHaveCount(2);
 
     await drawer
       .getByRole("button", { name: /Remove Tiger Bloom Long Sleeve size M/ })

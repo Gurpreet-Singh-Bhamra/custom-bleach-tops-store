@@ -64,7 +64,7 @@ export default function ReturnsPage() {
           To start a return, email{" "}
           <a
             href="mailto:orders@jbdesignz.uk"
-            className="font-medium text-rust hover:text-rust-hover"
+            className="font-medium text-rust transition-colors hover:underline"
           >
             orders@jbdesignz.uk
           </a>{" "}

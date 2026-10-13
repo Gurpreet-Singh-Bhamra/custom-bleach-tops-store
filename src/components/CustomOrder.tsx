@@ -92,7 +92,12 @@ export function CustomOrder() {
 
     try {
       const formPayload = new FormData(form);
-      formPayload.set("website_url", honeypot);
+      const websiteUrlFromForm = formPayload.get("website_url");
+      formPayload.set(
+        "website_url",
+        honeypot ||
+          (typeof websiteUrlFromForm === "string" ? websiteUrlFromForm : ""),
+      );
 
       const response = await fetch("/api/custom-request", {
         method: "POST",

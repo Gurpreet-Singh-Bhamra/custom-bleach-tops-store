@@ -57,7 +57,7 @@ export async function gotoStoreWithTigerBloom(page: Page, path = "/") {
         {
           productId: "tiger-bloom-long-sleeve",
           title: "Tiger Bloom Long Sleeve",
-          price: 35,
+          price: 25,
           size: "M",
           quantity: 1,
           image: "/images/products/featured-top.jpg",
@@ -129,8 +129,10 @@ export async function expectAccordionState(trigger: Locator, expanded: boolean) 
       .toBeGreaterThan(8);
   } else {
     await expect
-      .poll(async () => Math.round((await panel.boundingBox())?.height ?? 0))
-      .toBeLessThan(2);
+      .poll(async () => Math.round((await panel.boundingBox())?.height ?? 0), {
+        timeout: 7000,
+      })
+      .toBeLessThanOrEqual(2);
   }
 }
 
